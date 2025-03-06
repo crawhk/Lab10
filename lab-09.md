@@ -1,20 +1,57 @@
 Lab 09 - Grading the professor, Pt. 1
 ================
-Insert your name here
-Insert date here
+Hannah Crawley
+3/6/25
 
 ## Load Packages and Data
 
 ``` r
 library(tidyverse) 
 library(tidymodels)
+```
+
+    ## Warning: package 'tidymodels' was built under R version 4.4.3
+
+    ## Warning: package 'dials' was built under R version 4.4.3
+
+    ## Warning: package 'infer' was built under R version 4.4.3
+
+    ## Warning: package 'modeldata' was built under R version 4.4.3
+
+    ## Warning: package 'parsnip' was built under R version 4.4.3
+
+    ## Warning: package 'recipes' was built under R version 4.4.3
+
+    ## Warning: package 'rsample' was built under R version 4.4.3
+
+    ## Warning: package 'tune' was built under R version 4.4.3
+
+    ## Warning: package 'workflows' was built under R version 4.4.3
+
+    ## Warning: package 'workflowsets' was built under R version 4.4.3
+
+    ## Warning: package 'yardstick' was built under R version 4.4.3
+
+``` r
 library(openintro)
 ```
 
+    ## Warning: package 'openintro' was built under R version 4.4.3
+
+    ## Warning: package 'airports' was built under R version 4.4.3
+
+    ## Warning: package 'cherryblossom' was built under R version 4.4.3
+
+    ## Warning: package 'usdata' was built under R version 4.4.3
+
+# Part 1: Exploratory Data Analysis
+
 ## Exercise 1
 
-*Provide your answer here.*  
-Add code chunks as needed. Don’t forget to label your code chunks.
+> Visualize the distribution of score. Is the distribution skewed? What
+> does that tell you about how students rate courses? Is this what you
+> expected to see? Why, or why not? Include any summary statistics and
+> visualizations you use in your response.
 
 ``` r
 # Add your R code here
@@ -22,17 +59,100 @@ Add code chunks as needed. Don’t forget to label your code chunks.
 
 ## Exercise 2
 
-*Provide your answer here.*  
-Add code chunks as needed.
+> Visualize and describe the relationship between score and the variable
+> bty_avg, a professor’s average beauty rating.See the help page for the
+> function at <http://ggplot2.tidyverse.org/reference/index.html>.
 
 ``` r
 # Add your R code here
 ```
 
-## Additional Exercises
+## Exercise 3
 
-*Repeat the format above for additional exercises.*
+> Replot the scatterplot from Exercise 3, but this time use
+> geom_jitter()? What does “jitter” mean? What was misleading about the
+> initial scatterplot?
 
-## Hint
+``` r
+# Add your R code here
+```
 
-For Exercise 12, the `relevel()` function can be helpful!
+# Part 2: Linear Regression with a Numerical Predictor
+
+## Exercise 4
+
+> Let’s see if the apparent trend in the plot is something more than
+> natural variation. Fit a linear model called m_bty to predict average
+> professor evaluation score by average beauty rating (bty_avg). Based
+> on the regression output, write the linear model.
+
+## Exercise 5
+
+> Replot your visualization from Exercise 3, and add the regression line
+> to this plot in orange color. Turn off the shading for the uncertainty
+> of the line.
+
+## Exercise 6
+
+> Interpret the slope of the linear model in context of the data.
+
+## Exercise 7
+
+> Interpret the intercept of the linear model in context of the data.
+> Comment on whether or not the intercept makes sense in this context.
+
+## Exercise 8
+
+> Determine the R^2 of the model and interpret it in context of the
+> data.
+
+# Part 3: Linear Regression with a Categorical Predictor
+
+## Exercise 9
+
+> Fit a new linear model called m_gen to predict average professor
+> evaluation score based on gender of the professor. Based on the
+> regression output, write the linear model and interpret the slope and
+> intercept in context of the data.
+
+## Exercise 10
+
+> What is the equation of the line corresponding to male professors?
+> What is it for female professors?
+
+## Exercise 11
+
+> Fit a new linear model called m_rank to predict average professor
+> evaluation score based on rank of the professor. Based on the
+> regression output, write the linear model and interpret the slopes and
+> intercept in context of the data.
+
+## Exercise 12
+
+> For Exercise 12, the `relevel()` function can be helpful!Create a new
+> variable called rank_relevel where “tenure track” is the baseline
+> level.
+
+## Exercise 13
+
+> Fit a new linear model called m_rank_relevel to predict average
+> professor evaluation score based on rank_relevel of the professor.
+> This is the new (releveled) variable you created in Exercise 13. Based
+> on the regression output, write the linear model and interpret the
+> slopes and intercept in context of the data. Also determine and
+> interpret the R^2 of the model.
+
+## Exercise 14
+
+> Create another new variable called tenure_eligible that labels
+> “teaching” faculty as “no” and labels “tenure track” and “tenured”
+> faculty as “yes”.
+
+## Exercise 15
+
+> Fit a new linear model called m_tenure_eligible to predict average
+> professor evaluation score based on tenure_eligibleness of the
+> professor. This is the new (regrouped) variable you created in
+> Exercise 15. Based on the regression output, write the linear model
+> and interpret the slopes and intercept in context of the data. Also
+> determine and interpret the R^2 of the model.
