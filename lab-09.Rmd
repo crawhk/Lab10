@@ -26,7 +26,6 @@ evals
 ```{r}
 ggplot(evals, aes(x = score)) +
   geom_histogram()
-
 ```
 
 ```{r}
@@ -47,19 +46,25 @@ summary(evals$score)
 ```
 
 ## Exercise 2
-> Visualize and describe the relationship between score and the variable bty_avg, a professor’s average beauty rating.See the help page for the function at http://ggplot2.tidyverse.org/reference/index.html.
+> Visualize and describe the relationship between score and the variable bty_avg, a professor’s average beauty rating. See the help page for the function at http://ggplot2.tidyverse.org/reference/index.html.
 
-```{r exercise2}
-# Add your R code here
+```{r}
+ggplot(evals, aes(x = score, y = bty_avg)) +
+  geom_point()
 ```
+
+- Relationship between beauty and score of professor is slightly positive 
 
 ## Exercise 3 
 > Replot the scatterplot from Exercise 3, but this time use geom_jitter()? What does “jitter” mean? What was misleading about the initial scatterplot?
 
 ```{r exercise3}
-# Add your R code here
+ggplot(evals, aes(x = score, y = bty_avg)) +
+  geom_jitter()
 ```
-
+- Jitter adds a small amount of random variation to each point making it easier to see points that potentially overlap  
+- this spreads out the points to and makes the distribution look like there is less of a relationship, but still shows skew  
+- the first plot is slightly missleading due to the overlap in points 
 
 # Part 2: Linear Regression with a Numerical Predictor 
 
