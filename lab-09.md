@@ -242,10 +242,52 @@ summary(m_bty$fit)$r.squared
 > regression output, write the linear model and interpret the slope and
 > intercept in context of the data.
 
+``` r
+m_gen <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(score ~ gender, data = evals)
+```
+
+``` r
+summary(m_gen$fit)
+```
+
+    ## 
+    ## Call:
+    ## stats::lm(formula = score ~ gender, data = data)
+    ## 
+    ## Residuals:
+    ##      Min       1Q   Median       3Q      Max 
+    ## -1.83433 -0.36357  0.06567  0.40718  0.90718 
+    ## 
+    ## Coefficients:
+    ##             Estimate Std. Error t value Pr(>|t|)    
+    ## (Intercept)  4.09282    0.03867 105.852  < 2e-16 ***
+    ## gendermale   0.14151    0.05082   2.784  0.00558 ** 
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    ## 
+    ## Residual standard error: 0.5399 on 461 degrees of freedom
+    ## Multiple R-squared:  0.01654,    Adjusted R-squared:  0.01441 
+    ## F-statistic: 7.753 on 1 and 461 DF,  p-value: 0.005583
+
+> Fit a new linear model called m_gen to predict average professor
+> evaluation score based on gender of the professor. Based on the
+> regression output, write the linear model and interpret the slope and
+> intercept in context of the data.
+
+Equation: score = 4.09 + .14 (gender) where 0 = female and 1 = male  
+- intercept = 4.09 – on average a female professors score is 4.09  
+- slope = .14 – reflects the change in sex from male to female therefore
+on average the score for male professors is ~ 4.23
+
 ## Exercise 10
 
 > What is the equation of the line corresponding to male professors?
 > What is it for female professors?
+
+- y(hat) = 4.09 – female  
+- y(hat) = 4.09 + .14 – male
 
 ## Exercise 11
 
@@ -254,11 +296,57 @@ summary(m_bty$fit)$r.squared
 > regression output, write the linear model and interpret the slopes and
 > intercept in context of the data.
 
+``` r
+m_rank <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(score ~ rank, data = evals)
+```
+
+``` r
+summary(m_rank$fit)
+```
+
+    ## 
+    ## Call:
+    ## stats::lm(formula = score ~ rank, data = data)
+    ## 
+    ## Residuals:
+    ##     Min      1Q  Median      3Q     Max 
+    ## -1.8546 -0.3391  0.1157  0.4305  0.8609 
+    ## 
+    ## Coefficients:
+    ##                  Estimate Std. Error t value Pr(>|t|)    
+    ## (Intercept)       4.28431    0.05365  79.853   <2e-16 ***
+    ## ranktenure track -0.12968    0.07482  -1.733   0.0837 .  
+    ## ranktenured      -0.14518    0.06355  -2.284   0.0228 *  
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    ## 
+    ## Residual standard error: 0.5419 on 460 degrees of freedom
+    ## Multiple R-squared:  0.01163,    Adjusted R-squared:  0.007332 
+    ## F-statistic: 2.706 on 2 and 460 DF,  p-value: 0.06786
+
+For tenured track prof Equation: y(hat) = 4.28 - .13(track)
+
+- for prof not on tenure track their score is 4.28 on average
+  (intercept)
+- for prof on the tenure track their score is 4.15 on average - slope
+  suggests eval goes down .13 when on track to tenure
+
+For tenured prof Equation: y(hat) = 4.28 - .15(tenure)
+
+- for prof that have tenure their score is 4.13 on average - once they
+  have tenure the slope suggest their scores go down
+
 ## Exercise 12
 
-> For Exercise 12, the `relevel()` function can be helpful!Create a new
+> For Exercise 12, the `relevel()` function can be helpful! Create a new
 > variable called rank_relevel where “tenure track” is the baseline
 > level.
+
+``` r
+evals_relvl <- relevel(evals$rank, ref = "tenure track")
+```
 
 ## Exercise 13
 
@@ -269,11 +357,59 @@ summary(m_bty$fit)$r.squared
 > slopes and intercept in context of the data. Also determine and
 > interpret the R^2 of the model.
 
+``` r
+m_rank_relevel <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(score ~ evals_relvl, data = evals)
+```
+
+``` r
+summary(m_rank_relevel$fit)
+```
+
+    ## 
+    ## Call:
+    ## stats::lm(formula = score ~ evals_relvl, data = data)
+    ## 
+    ## Residuals:
+    ##     Min      1Q  Median      3Q     Max 
+    ## -1.8546 -0.3391  0.1157  0.4305  0.8609 
+    ## 
+    ## Coefficients:
+    ##                     Estimate Std. Error t value Pr(>|t|)    
+    ## (Intercept)          4.15463    0.05214  79.680   <2e-16 ***
+    ## evals_relvlteaching  0.12968    0.07482   1.733   0.0837 .  
+    ## evals_relvltenured  -0.01550    0.06228  -0.249   0.8036    
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    ## 
+    ## Residual standard error: 0.5419 on 460 degrees of freedom
+    ## Multiple R-squared:  0.01163,    Adjusted R-squared:  0.007332 
+    ## F-statistic: 2.706 on 2 and 460 DF,  p-value: 0.06786
+
+Equation: y(hat) = 4.15 + (coeff x rankdummy)
+
+- Tenure track: y hat = 4.15 – they are the reference group that the
+  intercept pertains to
+
+- Teaching: y hat = 4.15 + .13 = 4.28 – slope of .13 shows an increase
+  in score if they are in the teaching group
+
+- Tenured: y hat = 4.15 - .02 = 4.13 – slope of -.02 shows a decrease in
+  score if teachers are tenured
+
+R^2 = 0.01163 meaning 1.16% of variance is attributable to group
+
 ## Exercise 14
 
 > Create another new variable called tenure_eligible that labels
 > “teaching” faculty as “no” and labels “tenure track” and “tenured”
 > faculty as “yes”.
+
+``` r
+elig <- evals %>%  
+  mutate(tenure_elig = ifelse(rank %in% c("tenure track", "tenured"), "yes", "no"))
+```
 
 ## Exercise 15
 
@@ -283,3 +419,42 @@ summary(m_bty$fit)$r.squared
 > Exercise 15. Based on the regression output, write the linear model
 > and interpret the slopes and intercept in context of the data. Also
 > determine and interpret the R^2 of the model.
+
+``` r
+m_tenure_elig <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(score ~ tenure_elig, data = elig)
+```
+
+``` r
+summary(m_tenure_elig$fit)
+```
+
+    ## 
+    ## Call:
+    ## stats::lm(formula = score ~ tenure_elig, data = data)
+    ## 
+    ## Residuals:
+    ##     Min      1Q  Median      3Q     Max 
+    ## -1.8438 -0.3438  0.1157  0.4360  0.8562 
+    ## 
+    ## Coefficients:
+    ##                Estimate Std. Error t value Pr(>|t|)    
+    ## (Intercept)      4.2843     0.0536  79.934   <2e-16 ***
+    ## tenure_eligyes  -0.1406     0.0607  -2.315    0.021 *  
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    ## 
+    ## Residual standard error: 0.5413 on 461 degrees of freedom
+    ## Multiple R-squared:  0.0115, Adjusted R-squared:  0.009352 
+    ## F-statistic: 5.361 on 1 and 461 DF,  p-value: 0.02103
+
+Equation: y(hat) = 4.28 + (coeff x elig)
+
+- Teaching: y hat = 4.28 - intercept with teaching group being the
+  reference
+- Tenured: y hat = 4.28 - .14 = 4.14 – slope of -.14 shows a decrease
+  for teachers in the tenure eligible category
+
+R^2 = 0.0115 meaning 1.12% of variance is attributable to eligibility in
+rating
