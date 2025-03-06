@@ -1,0 +1,3 @@
+"0","m_gen <- linear_reg() %>%"
+"0","  set_engine(""lm"") %>%"
+"0","  fit(score ~ gender, data = evals)"

@@ -121,9 +121,27 @@ summary(m_bty$fit)$r.squared
 ## Exercise 9
 > Fit a new linear model called m_gen to predict average professor evaluation score based on gender of the professor. Based on the regression output, write the linear model and interpret the slope and intercept in context of the data.
 
-## Exercise 10 
-> What is the equation of the line corresponding to male professors? What is it for female professors?
+```{r}
+m_gen <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(score ~ gender, data = evals)
+```
 
+```{r}
+summary(m_gen$fit)
+```
+> Fit a new linear model called m_gen to predict average professor evaluation score based on gender of the professor. Based on the regression output, write the linear model and interpret the slope and intercept in context of the data.
+
+Equation: score = 4.09 + .14 (gender) where 0 = female and 1 = male   
+- intercept = 4.09 -- on average a female professors score is  4.09  
+- slope = .14 -- reflects the change in sex from male to female therefore on average the score for male professors is ~ 4.23
+
+
+## Exercise 10 
+> What is the equation of the line corresponding to male professors? What is it for female professors?  
+
+- y(hat) = 4.09 -- female   
+- y(hat) = 4.09 + .14 -- male 
 
 ## Exercise 11
 > Fit a new linear model called m_rank to predict average professor evaluation score based on rank of the professor. Based on the regression output, write the linear model and interpret the slopes and intercept in context of the data.
