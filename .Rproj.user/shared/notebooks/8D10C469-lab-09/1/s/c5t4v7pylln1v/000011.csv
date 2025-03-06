@@ -1,0 +1,2 @@
+"0","elig <- evals %>%  "
+"0","  mutate(tenure_elig = ifelse(rank %in% c(""tenure track"", ""tenured""), ""yes"", ""no""))"

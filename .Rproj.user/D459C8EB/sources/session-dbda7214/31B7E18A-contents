@@ -198,9 +198,38 @@ Equation: y(hat) = 4.15 + (coeff x rankdummy)
 
 - Tenured: y hat = 4.15 - .02 = 4.13 -- slope of -.02 shows a decrease in score if teachers are tenured 
 
+R^2 = 0.01163 meaning 1.16% of variance is attributable to group
+
 ## Exercise 14
 > Create another new variable called tenure_eligible that labels "teaching" faculty as "no" and labels "tenure track" and "tenured" faculty as "yes". 
 
+```{r}
+elig <- evals %>%  
+  mutate(tenure_elig = ifelse(rank %in% c("tenure track", "tenured"), "yes", "no"))
+```
+
+
 ## Exercise 15
 > Fit a new linear model called m_tenure_eligible to predict average professor evaluation score based on tenure_eligibleness of the professor. This is the new (regrouped) variable you created in Exercise 15. Based on the regression output, write the linear model and interpret the slopes and intercept in context of the data. Also determine and interpret the R^2 of the model.
+
+
+```{r}
+m_tenure_elig <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(score ~ tenure_elig, data = elig)
+```
+
+```{r}
+summary(m_tenure_elig$fit)
+```
+Equation: y(hat) = 4.28 + (coeff x elig)
+
+
+- Teaching: y hat = 4.28 - intercept with teaching group being the reference
+- Tenured: y hat = 4.28 - .14 = 4.14 -- slope of -.14 shows a decrease for teachers in the tenure eligible category 
+
+R^2 = 0.0115 meaning 1.12% of variance is attributable to eligibility in rating 
+
+
+
 
