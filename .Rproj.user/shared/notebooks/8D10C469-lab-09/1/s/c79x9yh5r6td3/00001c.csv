@@ -1,0 +1,4 @@
+"0","ggplot(evals, aes(x = bty_avg, y = score)) +"
+"0","  geom_jitter() + "
+"0","  geom_smooth(method = ""lm"", color = ""orange"", se = FALSE) + "
+"0","  labs(title = ""Hot or Not?"", subtitle = ""Teaching Eval v.s. Beauty"", x = ""Beauty Avg"", y = ""Eval Score"" )"

@@ -64,26 +64,58 @@ ggplot(evals, aes(x = score, y = bty_avg)) +
 ```
 - Jitter adds a small amount of random variation to each point making it easier to see points that potentially overlap  
 - this spreads out the points to and makes the distribution look like there is less of a relationship, but still shows skew  
-- the first plot is slightly missleading due to the overlap in points 
+- the first plot is slightly misleading due to the overlap in points 
 
 # Part 2: Linear Regression with a Numerical Predictor 
 
 ## Exercise 4 
 > Let’s see if the apparent trend in the plot is something more than natural variation. Fit a linear model called m_bty to predict average professor evaluation score by average beauty rating (bty_avg). Based on the regression output, write the linear model.
 
+```{r}
+m_bty <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(score ~ bty_avg, data = evals)
+```
+
+```{r}
+summary(m_bty$fit)
+```
+score(y^) = 3.88 + 0.067(bty_avg)
 
 ## Exercise 5 
 > Replot your visualization from Exercise 3, and add the regression line to this plot in orange color. Turn off the shading for the uncertainty of the line.
 
+```{r exercise5}
+ggplot(evals, aes(x = bty_avg, y = score)) +
+  geom_jitter() + 
+  geom_smooth(method = "lm", color = "orange", se = FALSE) + 
+  labs(title = "Hot or Not?", subtitle = "Teaching Eval v.s. Beauty", x = "Beauty Avg", y = "Eval Score" )
+```
+
+
 ## Exercise 6 
-> Interpret the slope of the linear model in context of the data.
+> Interpret the slope of the linear model in context of the data.  
+
+Formula: score(y^) = 3.88 + 0.067(bty_avg)
+
+- Slope: for each additional point of beauty average teaching evaluation score is expected to be 0.067 higher on average  
 
 
 ## Exercise 7
->Interpret the intercept of the linear model in context of the data. Comment on whether or not the intercept makes sense in this context.
+>Interpret the intercept of the linear model in context of the data. Comment on whether or not the intercept makes sense in this context. 
+
+- Intercept: For a beauty average of 0 the teaching eval score is expected to be 3.88 -- this intercept does not particularly make since in our context based on the scale presented ... and that the teachers can't be that horrible looking... someone "don't yuck someone else's yum" i guess...
 
 ## Exercise 8
 > Determine the R^2 of the model and interpret it in context of the data.
+
+```{r}
+summary(m_bty$fit)$r.squared
+
+```
+
+- R^2 =  0.03502 -- 3.5% of the variance in the teaching eval score can be explained by avg beauty, not a whole lot 
+
 
 # Part 3: Linear Regression with a Categorical Predictor 
 ## Exercise 9
