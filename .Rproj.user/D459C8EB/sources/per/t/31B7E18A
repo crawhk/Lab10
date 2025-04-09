@@ -1,7 +1,7 @@
 {
     "id": "31B7E18A",
-    "path": "~/GitHub/Lab9/lab-09.Rmd",
-    "project_path": "lab-09.Rmd",
+    "path": "~/GitHub/Lab9/lab-10.Rmd",
+    "project_path": "lab-10.Rmd",
     "type": "r_markdown",
     "hash": "2234822002",
     "contents": "",
@@ -13,14 +13,14 @@
         "source_window_id": "",
         "Source": "Source",
         "cursorPosition": "232,0",
-        "scrollLine": "224"
+        "scrollLine": "93"
     },
     "folds": "",
-    "lastKnownWriteTime": 1741299727,
+    "lastKnownWriteTime": 1744073124,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1741299727401,
+    "last_content_update": 1744073124,
     "read_only": false,
     "read_only_alternatives": []
 }
